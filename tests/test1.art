@@ -8,6 +8,33 @@ do [
         if 2 <> size fetch'person #[surname: "Doe"] [
             panic.code:1 "OOPS"
         ]
+        src: put'source #[name: "Source"]
+        tgt: put'target #[name: "Target"]
+        link src 'relatedTo tgt
+        link tgt 'relatedTo src
+        if 1 <> size fetch'source #[relatedTo: tgt] [
+            panic.code:1 "Expected the source to be linked to the target"
+        ]
+
+        unlink src 'relatedTo tgt
+        if 0 <> size fetch'source #[relatedTo: tgt] [
+            panic.code:1 "Dictionary unlink did not remove the edge"
+        ]
+        if 1 <> size fetch'target #[relatedTo: src] [
+            panic.code:1 "Unlink removed the reverse edge"
+        ]
+
+        link src 'relatedTo tgt
+        unlink src\id 'relatedTo tgt\id
+        if 0 <> size fetch'source #[relatedTo: tgt] [
+            panic.code:1 "Integer unlink did not remove the edge"
+        ]
+
+        link src 'relatedTo tgt
+        unlink @[src] 'relatedTo @[tgt]
+        if 0 <> size fetch'source #[relatedTo: tgt] [
+            panic.code:1 "Block unlink did not remove the edge"
+        ]
         print "ALL OK"
     ]
 ]

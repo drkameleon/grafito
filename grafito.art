@@ -720,11 +720,11 @@ graph: function [
             ;     else -> n
             ; ]
 
-        (dictionary? tgt)? -> nodesFrom: @[tgt\id]
+        (dictionary? tgt)? -> nodesTo: @[tgt\id]
         [
-            (integer? tgt)? -> nodesFrom: @[tgt]
+            (integer? tgt)? -> nodesTo: @[tgt]
             [
-                nodesFrom: new map tgt 'n [
+                nodesTo: new map tgt 'n [
                     (dictionary? n)? -> n\id
                     -> n
                 ]

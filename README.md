@@ -516,8 +516,8 @@ Remove connection from source to target node with given name
 x: put 'person [name: "John" surname: "Doe" birthday: 1986]
 y: put 'person [name: "Mary" surname: "Doe" birthday: 1986]
 
-link 'marriedTo x y
-unlink 'marriedTo x y
+link x 'marriedTo y
+unlink x 'marriedTo y
 ```
 
 ### fetch
